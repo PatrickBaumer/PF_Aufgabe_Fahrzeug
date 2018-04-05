@@ -115,6 +115,7 @@ public class Main {
         // verschickt wird.
         //
         status.type = StatusType.CONNECTION_LOST;
+        status.vehicleId = vehicleId;
         client.publish(Utils.MQTT_TOPIC_NAME, status.toJson(),2,true);
         // Anschließend die Verbindung trennen und den oben gestarteten Thread
         // beenden, falls es kein Daemon-Thread ist.
@@ -151,8 +152,8 @@ public class Main {
         
           String line;
             while ((line = br.readLine()) !=null) {
-                waypoints.add(new WGS84((Double.parseDouble(line.split("\\|")[0])/100000),
-                        (Double.parseDouble(line.split("\\|")[1])/100000)));
+                waypoints.add(new WGS84((Double.parseDouble(line.split("\\|")[1])/100000),
+                        (Double.parseDouble(line.split("\\|")[0])/100000)));
             }
             br.close();
         }catch(IOException e){
